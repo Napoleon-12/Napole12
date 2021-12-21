@@ -147,3 +147,118 @@ Readln(n);
 For i:=10 to n do If L(i) then Write(i,&#39;, &#39;);
 Readln
 END.
+
+
+
+
+
+
+VAR
+n,i:longint;
+Function Roz(a:longint):byte;
+VAR
+k:byte;
+BEGIN
+k:=0;
+While a>0 do
+BEGIN
+a:=a div 10;
+k:=k+1;
+END;
+Roz:=k;
+END;
+Function St(v,m:byte):longint;
+VAR
+y:longint;
+j:byte;
+BEGIN
+y:=1;
+For j:=1 to m do
+y:=y*v;
+St:=y;
+END;
+Function Arm(x:longint):boolean;
+VAR
+k,c:byte;
+s,b:longint;
+BEGIN
+Arm:=false;
+k:=Roz(x);
+b:=x;
+s:=0;
+while b&gt;0 do
+BEGIN
+c:=b mod 10;
+s:=s + st(c,k);
+b:=b div 10;
+END;
+If s=x then Arm:=true;
+END;
+BEGIN
+Writeln(&#39;Vvedite Chislo&#39;);
+Readln(n);
+For i:=10 to n do
+If Arm(i) then Write(i,&#39;, &#39;);
+Readln
+END.
+
+VAR
+n,i:longint;
+Function Roz(a:longint):byte;
+VAR
+k:byte;
+BEGIN
+k:=0;
+While a&gt;0 do
+BEGIN
+a:=a div 10;
+k:=k+1;
+END;
+Roz:=k;
+END;
+Function St10(m:byte):longint;
+VAR
+y:longint;
+j:byte;
+BEGIN
+y:=1;
+For j:=1 to m do
+y:=y*10;
+St10:=y;
+END;
+Function Sum(a:longint):byte;
+VAR
+S:byte;
+BEGIN
+S:=0;
+While a&gt;0 do
+BEGIN
+S:=S+a mod 10;
+a:=a div 10;
+END;
+Sum:=S;
+END;
+Function Lucky(x:longint):boolean;
+VAR
+k:byte;
+d,xl,xr:longint;
+BEGIN
+Lucky:=false;
+k:=Roz(x);
+If k mod 2=0 then
+BEGIN
+d:=St10(k div 2);
+xl:=x div d;
+xr:=x mod d;
+If Sum(xl)=Sum(xr) then
+Lucky:=true;
+END;
+END;
+BEGIN
+Writeln(&#39;Vvedite Chislo&#39;);
+Readln(n);
+For i:=10 to n do
+If Lucky(i) then Write(i,&#39;, &#39;);
+Readln
+END.
+
