@@ -1,7 +1,9 @@
 var
-i,n:integer; F:boolean;
+i,n:integer; 
+F:boolean;
 procedure Simple(a:longint;var P:boolean);
-var j:longint;
+var 
+j:longint;
 begin
 P:=true; if a=1 then P:=false;
 for j:=2 to a div 2 do
@@ -32,7 +34,8 @@ end;
 if a=c then P:=true else P:=false;
 end;
 begin
-writeln(&#39;n?&#39;); readln(n);
+writeln(&#39;n?&#39;); 
+readln(n);
 for i:=10 to n do
 begin Pol(i,F); if F then write(i,&#39;,&#39;) end;
 end.
@@ -106,7 +109,7 @@ VAR
 k:byte;
 BEGIN
 k:=0;
-While a&gt;0 do
+While a>0 do
 BEGIN
 a:=a div 10;
 k:=k+1;
