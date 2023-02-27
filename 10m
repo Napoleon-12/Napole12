@@ -1,0 +1,67 @@
+З десяткової в іншу
+
+var
+n, m, k: integer;
+a: array[1..100] of integer;
+i: integer;
+
+begin
+readln(n,m);
+i := 1;
+
+while n > 0 do
+begin
+k := n mod m;
+n := n div m;
+a[i] := k;
+i := i + 1;
+end;
+
+for i := i-1 downto 1 do
+begin
+write(a[i]);
+end;
+end.
+
+
+const al = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var x, y, s1, s2:string;
+    i, j, t:byte;
+    p:boolean;
+
+function f1(k1:longint; a:string):longint;
+var k, a1, l:longint;
+begin
+        k:=1; f1:=0;
+        while length(a)>0 do
+                begin
+                        l:=pos(a[length(a)], al)-1;
+                        if l>=k1 then begin f1:=-1; exit; end;
+                        f1:=f1 + l*k;
+                        delete(a, length(a), 1);
+                        k:=k*k1;
+                end;
+end;
+begin
+        readln(s1);
+        while s1<>'' do
+			begin
+				t:=pos(' ', s1);
+				x:=copy(s1, 1, t-1);
+				y:=copy(s1, t+1, length(s1)-t);
+				p:=true;
+				for i:=2 to 36 do
+						if p then for j:=2 to 36 do
+								if (p) and ( f1(i, x) = f1(j, y) ) and ( f1(i, x) <> -1)
+										then
+												begin
+														writeln(x,' (base ',i,') = ',y,' (base ',j,')');
+														p:=false;
+														break;
+												end;
+				if p
+						then writeln(x,' is not equal to ',y,' in any base 2..36');
+				readln(s1);
+			end;
+        readln;
+end.
