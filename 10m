@@ -65,3 +65,47 @@ begin
 			end;
         readln;
 end.
+
+
+
+var
+c,d,k,i,a,b,j:integer;
+begin
+i:=1;
+k:=0;
+read(c);
+read(d);
+
+if c>d then
+begin a:=c; b:=d; end
+else
+begin 
+a:=d; 
+b:=c; 
+end;
+
+while b>0 do
+begin
+j:=a mod 10 + b mod 10;
+If j = 2 then
+k:=k+10*i
+else
+k:=k+j*i;
+i:=i*10;
+a:=a div 10;
+b:=b div 10;
+end;
+
+if a>0 then
+while a>0 do
+begin
+If k div i + a mod 10 = 2 then
+k:=k+10*i
+else
+k:=k+(a mod 10)*i;
+i:=i*10;
+a:=a div 10;
+ end;
+ 
+writeln(k);
+end.
