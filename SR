@@ -1,0 +1,67 @@
+////////////////////////////////////////////////////////////////////////
+var
+s, r : string;
+i : integer;
+
+begin
+readln(s);
+r := '';
+
+for i := 1 to length(s) do
+   begin
+      if s[i] = '0' then
+         r := r + '00'
+      else if s[i] = '1' then
+         r := r + '01'
+      else if s[i] = '2' then
+         r := r + '10'
+      else if s[i] = '3' then
+         r := r + '11'
+end;
+writeln(r);
+end.
+///////////////////////////////////////////////////////////////////////////
+var
+  n, s, r: string;
+  len, i, j: integer;
+begin
+  readln(n);
+
+  len := length(n);
+
+  if len mod 3 = 1 then
+    n := '00' + n
+  else if len mod 3 = 2 then
+    n := '0' + n;
+
+  len := length(n);
+
+  for i := 1 to len div 3 do
+  begin
+    r := copy(n, (i-1)*3+1, 3);
+    s := '';
+
+    for j := 1 to 3 do
+    begin
+      if r[j] = '0' then
+        s := s + '0'
+      else if r[j] = '1' then
+        s := s + '1'
+      else
+    exit;
+    end;
+
+    case s of
+      '000': write('0');
+      '001': write('1');
+      '010': write('2');
+      '011': write('3');
+      '100': write('4');
+      '101': write('5');
+      '110': write('6');
+      '111': write('7');
+    end;
+  end;
+  writeln;
+end.
+////////////////////////////////////////////////////////////////////////////////
