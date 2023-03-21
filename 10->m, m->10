@@ -1,0 +1,24 @@
+10->m
+var
+n, m, k: integer;
+a: array[1..100] of integer;
+i: integer;
+
+begin
+writeln('???');
+readln(n,m);
+i := 1;
+
+while n > 0 do
+begin
+k := n mod m;
+n := n div m;
+a[i] := k;
+i := i + 1;
+end;
+
+for i := i-1 downto 1 do
+begin
+write(a[i]);
+end;
+end.
