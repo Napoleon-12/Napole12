@@ -1,0 +1,323 @@
+SELECT SORT
+uses
+  crt, graph;
+
+var
+  a: array [1..100] of integer;
+  n, DriverVar, ModeVar: integer;
+
+procedure Form;
+var
+  i: byte;
+begin
+  Randomize;
+  for i := 1 to n do
+    a[i] := Random(1000);
+end;
+
+procedure Viv;
+var
+  i: integer;
+begin
+  for i := 1 to n do
+  begin
+   Setfillstyle(1, 15);
+   Bar((i * 10) - 10, 1, i * 10, a[i]);
+  end;
+end;
+
+procedure Select;
+var
+  i, j, k: byte;
+  r: integer;
+begin
+  for i := 1 to n - 1 do
+  begin
+    k := i;
+    for j := i + 1 to n do
+      if a[j] < a[k] then
+        k := j;
+
+    Setfillstyle(1, 0);
+    Bar((i * 10) - 10, 1, i * 10, a[i]);
+    Bar((k * 10) - 10, 1, k * 10, a[k]);
+    Setfillstyle(1, 0);
+
+    r := a[i];
+    a[i] := a[k];
+    a[k] := r;
+
+    Setfillstyle(1, 15);
+    Bar((i * 10) - 10, 1, i * 10, a[i]);
+    Bar((k * 10) - 10, 1, k * 10, a[k]);
+
+    Setfillstyle(1, 2); 
+    Bar((i * 10) - 10, 1, i * 10, a[i]);
+    delay(100);
+  end;
+
+  Setfillstyle(1, 2); 
+  Bar((n * 10) - 10, 1, n * 10, a[n]);
+end;
+
+begin
+  DriverVar := Detect;
+  InitGraph(DriverVar, ModeVar, ' ');
+  Writeln('n?');
+  readln(n);
+  Form;Viv;Select;
+  OutTextXY(640,480, 'Slava Ukraini');
+  readln;
+end.
+
+BUBBLE SORT
+uses
+  crt, graph;
+
+var
+  a: array [1..100] of integer;
+  n, DriverVar, ModeVar: integer;
+
+procedure Form;
+var
+  i: byte;
+begin
+  Randomize;
+  for i := 1 to n do
+    a[i] := Random(1000);
+end;
+
+procedure Viv;
+var
+  i: integer;
+begin
+  for i := 1 to n do
+  begin
+    Setfillstyle(1, 15);
+    Bar((i * 10) - 10, 1, i * 10, a[i]);
+  end;
+end;
+
+procedure Bubble;
+var
+  i, m, k: byte;
+  r: integer;
+  f: boolean;
+begin
+  m := n;
+  f := true;
+  while f do
+  begin
+    f := false;
+    for i := 1 to m - 1 do
+    begin
+      if a[i] > a[i + 1] then
+      begin
+        f := true;
+        r := a[i];
+        a[i] := a[i + 1];
+        a[i + 1] := r;
+        Setfillstyle(1, 0);
+        Bar((i * 10) - 10, 1, i * 10, 1000);
+        Bar(((i + 1) * 10) - 10, 1, (i + 1) * 10, 1000);
+        Setfillstyle(1, 15);
+        Bar((i * 10) - 10, 1, i * 10, a[i]);
+        Bar(((i + 1) * 10) - 10, 1, (i + 1) * 10, a[i + 1]);
+        delay(30);
+      end;
+    end;
+    m := m - 1;
+  end;
+end;
+
+begin
+  DriverVar := Detect;
+  InitGraph(DriverVar, ModeVar, ' ');
+  Writeln('n?');
+  readln(n);
+  Form;
+  Viv;
+  Bubble;
+  Viv;
+  OutTextXY(640, 480, 'Slava Ukraini');
+  readln;
+end.
+
+QUICK SORT
+uses
+  crt, graph;
+
+var
+  a: array [1..100] of integer;
+  n, DriverVar, ModeVar: integer;
+
+procedure Form;
+var
+  i: byte;
+begin
+  Randomize;
+  for i := 1 to n do
+    a[i] := Random(1000);
+end;
+
+procedure Viv;
+var
+  i: integer;
+begin
+  for i := 1 to n do
+  begin
+    Setfillstyle(1, 15);
+    Bar((i * 10) - 10, 1, i * 10, a[i]);
+  end;
+end;
+
+procedure QS(Ip, Ik: byte);
+var
+  i, y: byte;
+  r: integer;
+begin
+  y := Ip;
+  for i := Ip + 1 to Ik do
+  begin
+    if a[i] < a[y] then
+    begin
+      r := a[y];
+      a[y] := a[y + 1];
+      a[y + 1] := r;
+      y := y + 1;
+      if i <> y then
+      begin
+        r := a[i];
+        a[i] := a[y - 1];
+        a[y - 1] := r
+      end;
+      Setfillstyle(1, 0);
+      Bar((i * 10) - 10, 1, i * 10, 1000);
+      Bar(((y - 1) * 10) - 10, 1, (y - 1) * 10, 1000);
+      Bar((y * 10) - 10, 1, y * 10, 1000);
+      Setfillstyle(1, 15);
+      Bar((i * 10) - 10, 1, i * 10, a[i]);
+      Bar(((y - 1) * 10) - 10, 1, (y - 1) * 10, a[y - 1]);
+      Bar((y * 10) - 10, 1, y * 10, a[y]);
+      delay(50);
+    end;
+  end;
+  if y - Ip > 1 then
+    QS(Ip, y - 1);
+  if Ik - y > 1 then
+    QS(y + 1, Ik);
+end;
+
+begin
+  DriverVar := Detect;
+  InitGraph(DriverVar, ModeVar, ' ');
+  //Writeln('n?');
+  //readln(n);
+  n:=50;
+  Form;
+  Viv;
+  QS(1, n);
+  Viv;
+  OutTextXY(640, 480, 'Slava Ukraini');
+  readln;
+end.
+
+MERGE SORT
+uses crt, graph;
+
+Type
+mas=array[1..100] of integer;
+
+var
+  a, b: mas;
+  n, DriverVar, ModeVar: integer;
+
+procedure Form(var a: mas; n: integer);
+var
+  i: integer;
+begin
+  Randomize;
+  for i := 1 to n do
+    a[i] := random(960);
+end;
+
+procedure Viv(var a: mas; n: integer);
+var
+  i: integer;
+begin
+  for i := 1 to n do
+  begin
+    Setfillstyle(1, 15);
+    Bar((i - 1) * 10, 1, i * 10, a[i]);
+  end;
+end;
+
+procedure Sliv(var a: mas; var c: mas; l, m, r: integer);
+var
+  i, j, k: integer;
+begin
+  i := l;
+  j := m + 1;
+  k := l;
+
+  while (i <= m) and (j <= r) do
+  begin
+    if a[i] < a[j] then
+    begin
+      c[k] := a[i];
+      i := i + 1;
+    end
+    else
+    begin
+      c[k] := a[j];
+      j := j + 1;
+    end;
+    k := k + 1;
+  end;
+
+  while i <= m do
+  begin
+    c[k] := a[i];
+    i := i + 1;
+    k := k + 1;
+  end;
+
+  while j <= r do
+  begin
+    c[k] := a[j];
+    j := j + 1;
+    k := k + 1;
+  end;
+
+  for k := l to r do
+    a[k] := c[k];
+end;
+
+procedure MergeSort(var a: mas; var c: mas; l, r: integer);
+var
+  m: integer;
+begin
+  if l < r then
+  begin
+    m := (l + r) div 2;
+    MergeSort(a, c, l, m);
+    MergeSort(a, c, m + 1, r);
+    Sliv(a, c, l, m, r);
+    Setfillstyle(1, 0);
+    Bar((l - 1) * 10, 1, r * 10, 960);
+    Viv(a, n);
+    delay(30);
+  end;
+end;
+
+begin
+  DriverVar := Detect;
+  InitGraph(DriverVar, ModeVar, ' ');
+  //writeln('n?');
+  //readln(n);
+  n:=40;
+  Form(a, n);
+  Viv(a, n);
+  MergeSort(a, b, 1, n);
+  readkey;
+end.
